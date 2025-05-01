@@ -4,7 +4,7 @@ import { ResponseUtil } from "../utils/response_utils";
 import { logRequest } from "../../logger/requestLogger";
 import jwt from "jsonwebtoken";
 import config from "../../config";
-import { createChatRoomService } from "../services/chatRoom.service";
+import { createChatRoomService, joinChatRoomService } from "../services/chatRoom.service";
 const { JWT_SECRET } = config;
 export const createChatRoomController = async (req: Request, res: Response) => {
   try {
@@ -34,4 +34,23 @@ export const createChatRoomController = async (req: Request, res: Response) => {
   }
 };
 
-export const joinChatRoomController = async (req: Request, res: Response) => {};
+export const joinChatRoomController = async (req: Request, res: Response) => {
+  try{
+    const { roomName, password } = req.body;
+    console.log("🚀 ~ joinChatRoomController ~ roomName:", roomName)
+    console.log("🚀 ~ joinChatRoomController ~ password:", password)
+    
+    const token = req.cookies.user;
+    const decodedToken = jwt.verify(token, JWT_SECRET!);
+    const user = decodedToken as { id: string, name: string, email: string};
+    if(isNullEmptyOrUndefined(roomName) || isNullEmptyOrUndefined(password) || isNullEmptyOrUndefined(user)){
+      throw new Error(`Missing required fields in joinChatRoomController`);
+    }
+    await joinChatRoomService(user, roomName, password);
+    return ResponseUtil.getOkResponse(res, `Chat room joined successfully`, {status: true})
+  }catch(error){
+    const message = error instanceof Error ? error.message : `Internal server error`;
+    logRequest({ req: req, data: message });
+    return ResponseUtil.getInternalServerErrorResponse(res, message, message);
+  }
+};

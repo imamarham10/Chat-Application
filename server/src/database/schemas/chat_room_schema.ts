@@ -6,7 +6,7 @@ const chatRoomsSchema = pgTable(
   "chat_rooms",
   {
     id: varchar("id", { length: 256 }).primaryKey(),
-    name: varchar("name", { length: 256 }).notNull(),
+    name: varchar("name", { length: 256 }).unique().notNull(),
     password: varchar("password", { length: 256}),
     isGroup: boolean("is_group").default(false),
     createdBy: varchar("created_by", { length: 256 }),

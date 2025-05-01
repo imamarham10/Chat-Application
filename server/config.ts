@@ -10,6 +10,9 @@ interface IConfig {
     DB_PASSWORD: string;
     DB_PORT: string;
     JWT_SECRET: string;
+    REDIS_HOST: string;
+    REDIS_PORT: string;
+    REDIS_PASSWORD: string;
     // AWS_ACCESSKEY: string;
     // AWS_SECRETKEY: string;
     // AWS_REGION: string;
@@ -43,6 +46,9 @@ const config: IConfig = {
     DB_USERNAME: process.env.DB_USERNAME || '',
     DB_PASSWORD: process.env.DB_PASSWORD || '',
     JWT_SECRET: process.env.JWT_SECRET || '',
+    REDIS_HOST: process.env.REDIS_HOST || '',
+    REDIS_PORT: process.env.REDIS_PORT || '',
+    REDIS_PASSWORD: process.env.REDIS_PASSWORD || '',
 }
 
 export default config;

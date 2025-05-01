@@ -1,3 +1,4 @@
+import { boolean } from "drizzle-orm/pg-core";
 import { pgTable, varchar, timestamp } from "drizzle-orm/pg-core";
 
 const chatRoomParticipantsSchema = pgTable("chat_room_participants", {
@@ -5,7 +6,7 @@ const chatRoomParticipantsSchema = pgTable("chat_room_participants", {
     conversationId: varchar("conversation_id", { length: 36 }).notNull(),
     userId: varchar("user_id", { length: 36 }).notNull(),
     joinedAt: timestamp("joined_at", { withTimezone: true }).defaultNow(),
-    isAdmin: varchar("is_admin").default("false"),
+    isAdmin: boolean("is_admin").default(false),
   });
   
 export {chatRoomParticipantsSchema}

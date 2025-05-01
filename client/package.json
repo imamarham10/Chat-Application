@@ -10,17 +10,22 @@
   },
   "dependencies": {
     "@next/font": "^14.2.15",
+    "@tanstack/react-query": "^5.74.11",
+    "axios": "^1.9.0",
     "emoji-random": "^0.1.2",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.503.0",
     "next": "15.3.1",
     "random-avatar-generator": "^2.0.0",
     "random-unicode-emoji": "^1.0.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sonner": "^2.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

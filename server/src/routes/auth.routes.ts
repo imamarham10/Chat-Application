@@ -3,15 +3,15 @@ import { loginController, registerController, verifyUserController } from "../co
 
 const authRouter = express.Router();
 
-authRouter.post("/auth/register", (req: Request, res: Response) => {
+authRouter.post("/register", (req: Request, res: Response) => {
     registerController(req,res);
 });
 
-authRouter.get("/auth/verify", (req: Request, res: Response)=> {
+authRouter.get("/verify", (req: Request, res: Response)=> {
     verifyUserController(req,res);
 })
 
-authRouter.post("/auth/login", (req: Request, res: Response) => {
+authRouter.post("/login", (req: Request, res: Response) => {
     loginController(req,res);
 })
 

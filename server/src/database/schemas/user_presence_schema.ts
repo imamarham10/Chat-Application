@@ -1,7 +1,7 @@
 import { pgTable, varchar, timestamp, primaryKey, index } from "drizzle-orm/pg-core";
 
 const userPresenceSchema = pgTable("user_presence", {
-    userId: varchar("user_id", { length: 36 }),
+    userId: varchar("user_id", { length: 36 }).notNull(),
     roomId: varchar("room_id", { length: 36 }).notNull(),
     isOnline: varchar("is_online").default("false"),
     lastSeen: timestamp("last_seen", { withTimezone: true }),    

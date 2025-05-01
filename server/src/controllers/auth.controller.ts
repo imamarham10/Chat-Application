@@ -38,7 +38,28 @@ const verifyUserController = async (req: Request, res: Response) => {
         authenticated: false,
       });
     }
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET!);
+
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, process.env.JWT_SECRET!);
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        return ResponseUtil.getUnauthorizedResponse(res, `Token expired`, {
+          authenticated: false,
+          expiredAt: error.expiredAt
+        });
+      }
+      return ResponseUtil.getUnauthorizedResponse(res, `Invalid token`, {
+        authenticated: false,
+      });
+    }
+
+    if (isNullEmptyOrUndefined(decodedToken)) {
+      return ResponseUtil.getUnauthorizedResponse(res, `Unauthorized`, {
+        authenticated: false,
+      });
+    }
+    
     console.log("🚀 ~ verifyUserController ~ user:", decodedToken)
     return ResponseUtil.getOkResponse(res, `User authenticated`, {
       autheticated: true,
